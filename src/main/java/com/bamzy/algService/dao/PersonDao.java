@@ -3,6 +3,7 @@ package com.bamzy.algService.dao;
 import com.bamzy.algService.model.Person;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface PersonDao {
@@ -13,4 +14,8 @@ public interface PersonDao {
         return insertPerson(id,person);
     }
     List<Person> selectAllPersons();
+    int deletePersonById(UUID id);
+    int updatePersonById(UUID id);
+    Optional<Person> selectPersonById(UUID id);
+
 }
