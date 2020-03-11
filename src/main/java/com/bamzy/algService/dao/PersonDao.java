@@ -14,8 +14,8 @@ public interface PersonDao {
         return insertPerson(id,person);
     }
     List<Person> selectAllPersons();
-    int deletePersonById(UUID id);
-    int updatePersonById(UUID id);
+    boolean deletePersonById(UUID id);
+    boolean updatePersonById(UUID id, Person person);
     Optional<Person> selectPersonById(UUID id);
 
 }

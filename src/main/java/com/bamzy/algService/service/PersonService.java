@@ -29,4 +29,12 @@ public class PersonService {
     public Optional<Person> getPersonById(UUID id){
         return personDao.selectPersonById(id);
     }
+
+    public boolean deletePersonById(UUID id){
+        return personDao.deletePersonById(id);
+    }
+
+    public boolean updatePersonById(UUID id, Person newPerson){
+        return personDao.updatePersonById(id,newPerson);
+    }
 }

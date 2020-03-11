@@ -10,7 +10,7 @@ import java.util.UUID;
 
 
 @Repository("fakeDao")
-public class FakePersonDataAccess implements PersonDao {
+public class InMemoryDataAccess implements PersonDao {
     private static List<Person> DB = new ArrayList<>();
     @Override
     public int insertPerson(UUID id, Person person) {
@@ -24,13 +24,25 @@ public class FakePersonDataAccess implements PersonDao {
     }
 
     @Override
-    public int deletePersonById(UUID id) {
-        return 0;
+    public boolean deletePersonById(UUID id) {
+        Optional<Person> person = selectPersonById(id);
+        if (person.isEmpty())
+            return false;
+        DB.remove(person.get());
+        return true;
     }
 
     @Override
-    public int updatePersonById(UUID id) {
-        return 0;
+    public boolean updatePersonById(UUID id, Person person) {
+        return selectPersonById(id).map(p -> {
+            int selectedId = DB.indexOf(p);
+            if (selectedId >= 0 ){
+                DB.set(selectedId,new Person(id,person.getName()));
+                return true;
+            } else
+                return false;
+        }).orElse( false);
+
     }
 
     @Override
